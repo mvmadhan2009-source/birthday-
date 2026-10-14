@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ta" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Gundukizhi | பிறந்தநாள் வாழ்த்துகள் செல்லம்!</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Hind+Madurai:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            roseGold: '#B76E79',
+            softPink: '#FFF0F3',
+            deepRose: '#FF4D6D',
+            neonRose: '#FF0055',
+            darkRomantic: '#1A0B12',
+            darkCard: '#2A131E'
+          },
+          fontFamily: {
+            cursive: ['"Great Vibes"', 'cursive'],
+            tamil: ['"Hind Madurai"', 'sans-serif'],
+            body: ['"Poppins"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1A0B12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #FF4D6D;
+      border-radius: 4px;
+    }
+
+    /* 3D Floating Hearts Canvas Background */
+    #hearts-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .glow-effect {
+      box-shadow: 0 0 25px rgba(255, 77, 109, 0.5), 0 0 50px rgba(255, 0, 85, 0.3);
+    }
+    
+    .glow-text {
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.7), 0 0 20px rgba(255, 0, 85, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-darkRomantic text-slate-100 font-body overflow-x-hidden selection:bg-deepRose selection:text-white">
+
+  <!-- 3D Floating Hearts Interactive Canvas -->
+  <canvas id="hearts-canvas"></canvas>
+
+  <!-- Audio Controls Floating Button -->
+  <div class="fixed top-5 right-5 z-50 flex items-center gap-2 bg-darkCard/80 backdrop-blur-md px-4 py-2 rounded-full border border-deepRose/40 shadow-lg">
+    <button id="musicToggleBtn" onclick="toggleAudio()" class="text-deepRose hover:text-white transition flex items-center gap-2 text-sm font-semibold">
+      <i id="musicIcon" class="fas fa-music text-lg animate-bounce"></i>
+      <span id="musicText">இசை ஒலிக்க (Music ON)</span>
+    </button>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="min-h-screen relative flex flex-col justify-center items-center text-center px-4 py-12 z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-deepRose/20 via-darkRomantic/80 to-darkRomantic pointer-events-none"></div>
+
+    <div class="max-w-3xl mx-auto z-10 space-y-6">
+      <div class="inline-block px-4 py-1.5 rounded-full border border-deepRose/50 bg-deepRose/10 text-deepRose font-tamil text-sm md:text-base animate-pulse">
+        ✨ The Day I was waiting for a Long Time ✨
+      </div>
+
+      <h1 class="font-cursive text-6xl sm:text-7xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-softPink via-deepRose to-roseGold glow-text py-2">
+        Happy Birthday Gundukizhi!
+      </h1>
+
+      <p class="font-tamil text-xl sm:text-2xl text-rose-200/90 font-medium leading-relaxed max-w-2xl mx-auto">
+        "பிறந்தநாள் வாழ்த்துகள் செல்லம்! என் வாழ்க்கையின் அழகிய வெளிச்சமே, நீ எப்போதும் மகிழ்ச்சியோடு வாழ வாழ்த்துகிறேன்!" 💕
+      </p>
+
+      <!-- GIFT BOX UNLOCK / REVEAL SURPRISE BUTTON -->
+      <div class="pt-8">
+        <div id="giftBoxContainer" class="cursor-pointer inline-block group" onclick="openSurpriseGift()">
+          <div class="relative w-36 h-36 mx-auto bg-gradient-to-tr from-deepRose to-neonRose rounded-2xl flex flex-col items-center justify-center glow-effect transform transition group-hover:scale-105 active:scale-95 border-2 border-pink-300/30">
+            <i class="fas fa-gift text-5xl text-white group-hover:rotate-12 transition duration-300"></i>
+            <span class="mt-2 text-xs font-semibold uppercase tracking-wider text-white/90">பரிசை திற (Open)</span>
+            
+            <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-4 bg-white/20"></div>
+            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-4 bg-white/20"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-rose-300/60 font-tamil mt-2">பரிசுப் பெட்டியைத் தட்டி ஆச்சரியத்தைக் காணுங்கள்! ✨</p>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 text-rose-300/70 animate-bounce">
+      <span class="text-xs font-tamil">கீழே செல்லவும்</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- SPECIAL DATE MILESTONE SECTION (REPLACED MEMORY GALLERY) -->
+  <section class="py-16 px-4 max-w-4xl mx-auto z-10 relative">
+    <div class="bg-darkCard/80 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-deepRose/40 shadow-2xl text-center relative overflow-hidden group">
+      <div class="absolute inset-0 bg-gradient-to-r from-deepRose/10 via-neonRose/5 to-transparent pointer-events-none"></div>
+      
+      <div class="relative z-10 space-y-4">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-deepRose/20 text-rose-300 font-tamil text-sm border border-deepRose/40 tracking-wider">
+          ✨ A Special Day in Our Lives ✨
+        </span>
+        
+        <h2 class="font-cursive text-6xl sm:text-7xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-r from-softPink via-deepRose to-roseGold glow-text py-2">
+          26 • 10 • 2009
+        </h2>
+
+        <p class="font-tamil text-xl sm:text-2xl text-rose-100/90 font-medium leading-relaxed max-w-2xl mx-auto pt-2">
+          "நம் வாழ்வில் எல்லாமே அழகாக மாறத் தொடங்கிய, என்றும் என் இதயத்தில் சிறப்பிடம் பெற்ற பொன்னான நாள்... உன் பிறந்தநாள்💕💓💝"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE REASONS SECTION -->
+  <section class="py-16 px-4 max-w-4xl mx-auto z-10 relative">
+    <div class="bg-darkCard/70 backdrop-blur-md rounded-3xl p-6 md:p-10 border border-deepRose/30 shadow-2xl text-center">
+      <h2 class="font-tamil text-3xl font-bold text-pink-300 mb-2">
+        ❤️ உன்னை நேசிப்பதற்கான காரணங்கள்
+      </h2>
+      <p class="text-rose-200/70 text-sm mb-6 font-tamil">கீழே உள்ள பட்டனை கிளிக் செய்து ஒவ்வொரு காரணியாகக் கண்டறியுங்கள்!</p>
+
+      <div class="min-h-[120px] flex items-center justify-center p-6 bg-darkRomantic/90 rounded-2xl border border-rose-500/20 mb-6">
+        <p id="reasonText" class="font-tamil text-xl md:text-2xl text-rose-100 font-medium transition-all duration-300">
+          "பட்டனை தட்டி என் இதயத்தின் குரலைக் கேளுங்கள்! 💌"
+        </p>
+      </div>
+
+      <button onclick="nextReason()" class="px-8 py-3 bg-gradient-to-r from-deepRose to-neonRose text-white font-semibold rounded-full shadow-lg hover:shadow-deepRose/50 transform hover:-translate-y-0.5 active:translate-y-0 transition font-tamil">
+        காரணத்தைக் காட்டு (Next Reason) <i class="fas fa-heart ml-2"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- LOVE LETTER SECTION -->
+  <section class="py-16 px-4 max-w-3xl mx-auto z-10 relative">
+    <div class="bg-gradient-to-b from-darkCard to-darkRomantic p-8 md:p-12 rounded-3xl border border-rose-400/30 shadow-2xl relative overflow-hidden">
+      
+      <i class="fas fa-envelope-open-text absolute -right-10 -bottom-10 text-9xl text-deepRose/5 pointer-events-none"></i>
+
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="font-tamil text-2xl md:text-3xl font-bold text-rose-300 flex items-center gap-3">
+          <i class="fas fa-feather-alt text-deepRose"></i> உனக்காக என் அன்பு மடல்...
+        </h2>
+        <button onclick="toggleEditLetter()" id="editBtn" class="text-xs bg-deepRose/20 hover:bg-deepRose/40 text-rose-200 px-3 py-1.5 rounded-lg border border-deepRose/40 transition">
+          <i class="fas fa-edit mr-1"></i> Edit Letter
+        </button>
+      </div>
+
+      <div id="letterContainer" class="space-y-4 font-tamil text-rose-100/90 text-lg leading-relaxed bg-black/20 p-6 rounded-2xl border border-white/5">
+        <p id="letterText" class="whitespace-pre-line">
+என் குண்டுகிளி,
+
+உன் பிறந்தநாளில் உனக்கு என் இதயப்பூர்வமான நல்வாழ்த்துகள்! 🎂💖😘😘😘
+
+என் வாழ்க்கையில் நீ வந்த நாளிலிருந்து ஒவ்வொரு தருணமும் மிகவும் அழகாகவும் அர்த்தமுள்ளதாகவும் மாறியிருக்கிறது. உன் புன்னகை எனக்கு மிகப்பெரிய பலம், உன் அன்பு எனக்குக் கிடைத்த மிகப்பெரிய பொக்கிஷம்💖💖
+
+இந்தச் சிறப்பு நாளில் உன் ஆசைகள் அனைத்தும் நிறைவேற வேண்டும், நீ எப்போதும் சிரித்துக்கொண்டே மகிழ்ச்சியாக வாழ வேண்டும் என்று இறைவனை வேண்டுகிறேன்🥰🥰🥰🥰🥰
+
+பிறந்தநாள் வாழ்த்துகள் கனிஷ்கா😘😘😘! 🌹✨
+
+என்றென்றும் உன் அன்புடன்,
+உன் காதலன் ❤️💕💕💘
+        </p>
+        <textarea id="letterInput" class="hidden w-full h-64 bg-darkRomantic/90 text-rose-100 p-4 rounded-xl border border-deepRose/60 focus:outline-none focus:ring-2 focus:ring-deepRose font-tamil leading-relaxed"></textarea>
+      </div>
+
+      <div id="saveBtnContainer" class="hidden mt-4 text-right">
+        <button onclick="saveLetter()" class="px-5 py-2 bg-deepRose text-white rounded-lg text-sm font-semibold hover:bg-neonRose transition font-tamil">
+          சேமி (Save Letter)
+        </button>
+      </div>
+
+      <div class="mt-8 text-center">
+        <button onclick="triggerConfetti()" class="px-8 py-3 bg-roseGold/20 hover:bg-roseGold/40 border border-roseGold/60 text-rose-200 rounded-full font-tamil text-sm tracking-wide transition transform hover:scale-105">
+          🎉 வாழ்த்து மழை பொழிய (Celebrate with Confetti) 🎉
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 text-center text-rose-300/50 font-tamil text-sm border-t border-rose-900/30 z-10 relative">
+    <p>Made with ❤️ specially for You | Happy Birthday!</p>
+  </footer>
+
+  <!-- POPUP MODAL FOR SURPRISE GIFT -->
+  <div id="surpriseModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-darkCard border border-deepRose/50 rounded-3xl p-6 md:p-8 max-w-md w-full text-center relative shadow-2xl transform scale-95 transition-transform duration-300" id="modalCard">
+      <button onclick="closeSurpriseGift()" class="absolute top-4 right-4 text-rose-300/70 hover:text-white text-xl">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="text-6xl text-deepRose mb-4 animate-bounce">
+        👑
+      </div>
+
+      <h3 class="font-tamil text-2xl font-bold text-rose-200 mb-2">
+        என் இளவரசிக்கு இனிய பிறந்தநாள் நல்வாழ்த்துகள்!
+      </h3>
+
+      <p class="font-tamil text-rose-100/80 my-4 text-base leading-relaxed">
+        "உலகத்திலேயே மிகவும் அழகான இதயத்தைக் கொண்டவளுக்கு எனது அன்பு பிறந்தநாள் வாழ்த்துகள்! நீ எப்போதும் என் வாழ்வில் பிரகாசிக்கும் தேவதை!" ✨💖
+      </p>
+
+      <button onclick="closeSurpriseGift()" class="mt-4 px-6 py-2.5 bg-gradient-to-r from-deepRose to-neonRose text-white font-semibold rounded-full font-tamil text-sm shadow-md hover:scale-105 transition">
+        நன்றி செல்லம்! 🥰
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const canvas = document.getElementById('hearts-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Heart3D {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 100;
+        this.size = Math.random() * 16 + 10;
+        this.speedY = Math.random() * 1.5 + 0.8;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.8;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.03;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.hue = Math.floor(Math.random() * 30) + 330;
+      }
+
+      update() {
+        this.y -= this.speedY;
+        this.x += Math.sin(this.y * 0.01) * 0.5;
+        this.rotation += this.rotationSpeed;
+
+        if (this.y < -50) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.globalAlpha = this.opacity;
+
+        const r = this.size;
+        ctx.beginPath();
+        ctx.moveTo(0, -r / 2);
+        ctx.bezierCurveTo(r / 2, -r, r, -r / 3, 0, r);
+        ctx.bezierCurveTo(-r, -r / 3, -r / 2, -r, 0, -r / 2);
+
+        const grad = ctx.createLinearGradient(-r, -r, r, r);
+        grad.addColorStop(0, `hsl(${this.hue}, 100%, 80%)`);
+        grad.addColorStop(0.5, `hsl(${this.hue}, 100%, 55%)`);
+        grad.addColorStop(1, `hsl(${this.hue}, 100%, 30%)`);
+
+        ctx.fillStyle = grad;
+        ctx.shadowColor = `hsl(${this.hue}, 100%, 40%)`;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(-r / 3, -r / 3, r / 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fill();
+
+        ctx.restore();
+      }
+    }
+
+    const hearts = Array.from({ length: 40 }, () => new Heart3D());
+
+    function animateHearts() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hearts.forEach(h => {
+        h.update();
+        h.draw();
+      });
+      requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+
+    const loveReasons = [
+      "1. உன் அழகிய கண்கள் என்னை எப்போதும் மயக்க வைக்கின்றன! 👀💖",
+      "2. என் கடினமான நேரங்களிலும் என்னை சிரிக்க வைக்கும் உன் குறும்புத்தனம்! 😊✨",
+      "3. உலகிலேயே மிகவும் அன்பான உன் இதயம்! ❤️",
+      "4. நீ என் அருகில் இருக்கும்போது மட்டுமே என் மனம் முழு அமைதி அடைகிறது! 🌸",
+      "5. உனக்கும் எனக்கும் உள்ள புரிதலும் அளவற்ற அன்பும்! 💑",
+      "6. என்னை எனக்காகவே முழுமையாகப் புரிந்துகொண்ட ஒரே தேவதை நீ! 👑",
+      "7. உன் குரலைக் கேட்டாலே என் கவலைகள் அனைத்தும் பறந்துவிடும்! 🎶",
+      "8. உன்னுடன் கழிக்கும் ஒவ்வொரு நொடியும் என் வாழ்வின் பொக்கிஷம்! ⏳💖"
+    ];
+    let currentReasonIndex = 0;
+
+    function nextReason() {
+      const reasonElem = document.getElementById('reasonText');
+      reasonElem.style.opacity = '0';
+      
+      setTimeout(() => {
+        currentReasonIndex = (currentReasonIndex + 1) % loveReasons.length;
+        reasonElem.innerText = loveReasons[currentReasonIndex];
+        reasonElem.style.opacity = '1';
+      }, 200);
+
+      confetti({
+        particleCount: 20,
+        spread: 40,
+        origin: { y: 0.8 }
+      });
+    }
+
+    function openSurpriseGift() {
+      const modal = document.getElementById('surpriseModal');
+      const modalCard = document.getElementById('modalCard');
+      modal.classList.remove('hidden');
+      
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modalCard.classList.remove('scale-95');
+      }, 10);
+
+      const duration = 3 * 1000;
+      const animationEnd = Date.now() + duration;
+
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < animationEnd) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+
+    function closeSurpriseGift() {
+      const modal = document.getElementById('surpriseModal');
+      const modalCard = document.getElementById('modalCard');
+      modal.classList.add('opacity-0');
+      modalCard.classList.add('scale-95');
+      
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    function triggerConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    let isEditing = false;
+    function toggleEditLetter() {
+      const textElem = document.getElementById('letterText');
+      const inputElem = document.getElementById('letterInput');
+      const editBtn = document.getElementById('editBtn');
+      const saveBtnContainer = document.getElementById('saveBtnContainer');
+
+      if (!isEditing) {
+        inputElem.value = textElem.innerText;
+        textElem.classList.add('hidden');
+        inputElem.classList.remove('hidden');
+        editBtn.innerHTML = '<i class="fas fa-times mr-1"></i> Cancel';
+        saveBtnContainer.classList.remove('hidden');
+        isEditing = true;
+      } else {
+        textElem.classList.remove('hidden');
+        inputElem.classList.add('hidden');
+        editBtn.innerHTML = '<i class="fas fa-edit mr-1"></i> Edit Letter';
+        saveBtnContainer.classList.add('hidden');
+        isEditing = false;
+      }
+    }
+
+    function saveLetter() {
+      const textElem = document.getElementById('letterText');
+      const inputElem = document.getElementById('letterInput');
+      textElem.innerText = inputElem.value;
+      toggleEditLetter();
+      triggerConfetti();
+    }
+
+    let audioCtx = null;
+    let isPlaying = false;
+    let melodyInterval = null;
+
+    function toggleAudio() {
+      const musicText = document.getElementById('musicText');
+      const musicIcon = document.getElementById('musicIcon');
+
+      if (!isPlaying) {
+        startRomanticMelody();
+        musicText.innerText = "இசை நிறுத்து (Pause Music)";
+        musicIcon.classList.add('text-neonRose');
+        isPlaying = true;
+      } else {
+        stopRomanticMelody();
+        musicText.innerText = "இசை ஒலிக்க (Music ON)";
+        musicIcon.classList.remove('text-neonRose');
+        isPlaying = false;
+      }
+    }
+
+    function startRomanticMelody() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      const notes = [261.63, 329.63, 392.00, 440.00, 523.25, 659.25];
+
+      function playNote(freq) {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.3);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.0);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + 2.0);
+      }
+
+      melodyInterval = setInterval(() => {
+        const note = notes[Math.floor(Math.random() * notes.length)];
+        playNote(note);
+      }, 800);
+    }
+
+    function stopRomanticMelody() {
+      if (melodyInterval) {
+        clearInterval(melodyInterval);
+        melodyInterval = null;
+      }
+    }
+  </script>
+</body>
+</html>
